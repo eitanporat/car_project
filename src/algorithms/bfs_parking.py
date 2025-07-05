@@ -201,7 +201,7 @@ class BFSParking(_ParkingSearchBase):
         best_node = root
 
         # logging
-        print("Depth 0 – frontier size = 1")
+        print("Depth 0 - frontier size = 1")
         expansions = 0
         cur_depth = 0
 
@@ -212,13 +212,13 @@ class BFSParking(_ParkingSearchBase):
 
             if expansions >= self.max_expansions:
                 print(
-                    "Expansion budget exhausted – returning best-so-far."
+                    "Expansion budget exhausted - returning best-so-far."
                 )
                 return self._reconstruct(best_node)
 
             if node.depth > cur_depth:
                 cur_depth = node.depth
-                print(f"Depth {cur_depth} – frontier size = {len(q)+1}")
+                print(f"Depth {cur_depth} - frontier size = {len(q)+1}")
 
             if self._is_goal(node.state):
                 return self._reconstruct(node)
@@ -253,11 +253,11 @@ class BFSParking(_ParkingSearchBase):
                 push(child)
                 self.parents[h] = child
 
-        print("No exact goal – returning closest candidate.")
+        print("No exact goal - returning closest candidate.")
         return self._reconstruct(best_node)
 
     # ───────────────────────────────────────────────────────────────────── #
-    # reconstruction – now uses apply_action
+    # reconstruction - now uses apply_action
     # ───────────────────────────────────────────────────────────────────── #
     def _reconstruct(self, node: Node) -> Tuple[Path, List[Action]]:
         actions: List[Action] = []

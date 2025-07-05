@@ -346,7 +346,70 @@ python -m src.tests.bfs_test
 <details>
 <summary><strong>📊 Results</strong></summary>
 
-*[Results section to be added later]*
+### Batch Sweep Results
+
+We conducted a comprehensive sweep of parking lot dimensions using bidirectional BFS with the following parameters:
+
+- **Length range**: 7.0m to 20.0m (step: 2.0m)
+- **Width range**: 2.0m to 7.0m (step: 1.0m)
+- **Total configurations**: 48
+- **Algorithm**: Bidirectional BFS (Forward depth: 2, Reverse depth: 2)
+- **Car specs**: 5.0m × 2.0m, rear axle at 1.0m, minimum turning radius 7.0m
+
+#### Results Table
+
+| Length \ Width | 2.0 | 3.0 | 4.0 | 5.0 | 6.0 | 7.0 |
+|---|---|---|---|---|---|---|
+| 7.0 | No Path Found (visited 53352 states) | No Path Found (visited 53694 states) | No Path Found (visited 53840 states) | No Path Found (visited 53922 states) | No Path Found (visited 53977 states) | No Path Found (visited 54015 states) |
+| 9.0 | Found Path with 4 parts (visited 57854 states) | Found Path with 4 parts (visited 58905 states) | Found Path with 4 parts (visited 60999 states) | No Path Found (visited 63146 states) | No Path Found (visited 63382 states) | No Path Found (visited 63624 states) |
+| 11.0 | Found Path with 4 parts (visited 3319 states) | Found Path with 4 parts (visited 70624 states) | Found Path with 4 parts (visited 73922 states) | Found Path with 4 parts (visited 75196 states) | No Path Found (visited 78460 states) | No Path Found (visited 79152 states) |
+| 13.0 | Found Path with 4 parts (visited 11274 states) | Found Path with 4 parts (visited 17657 states) | Found Path with 4 parts (visited 3720 states) | Found Path with 4 parts (visited 91994 states) | No Path Found (visited 94935 states) | No Path Found (visited 96735 states) |
+| 15.0 | Found Path with 4 parts (visited 5206 states) | Found Path with 4 parts (visited 13089 states) | Found Path with 4 parts (visited 24213 states) | Found Path with 4 parts (visited 32023 states) | Found Path with 4 parts (visited 107590 states) | No Path Found (visited 119156 states) |
+| 17.0 | Found Path with 3 parts (visited 1441 states) | Found Path with 4 parts (visited 17902 states) | Found Path with 4 parts (visited 21265 states) | Found Path with 4 parts (visited 16805 states) | Found Path with 4 parts (visited 19839 states) | Found Path with 4 parts (visited 22996 states) |
+
+#### Key Observations
+
+1. **Feasibility Threshold**: Parking becomes feasible around length 9.0m for narrow widths (2-4m)
+2. **Width Impact**: Wider parking spaces (6-7m) require longer lengths (15-17m) for successful parking
+3. **Search Efficiency**: Successful paths typically require fewer visited states than failed searches
+4. **Path Complexity**: Most successful paths use 4 motion parts, with some using only 3 parts for larger spaces
+
+#### Sample Visualizations
+
+**Full Trajectory with Car Outlines**
+![Sample Full Trajectory 1](docs/images/sample_full_1.png)
+*Parking maneuver in 17.0m × 7.0m space showing complete car trajectory*
+
+![Sample Full Trajectory 2](docs/images/sample_full_2.png)
+*Parking maneuver in 15.0m × 6.0m space with numbered poses*
+
+**Rear Axle Trajectories**
+![Sample Rear Axle 1](docs/images/sample_rear_1.png)
+*Rear axle path for 17.0m × 7.0m parking space*
+
+![Sample Rear Axle 2](docs/images/sample_rear_2.png)
+*Rear axle path for 15.0m × 6.0m parking space*
+
+### Running Batch Sweeps
+
+To run your own batch sweep:
+
+```bash
+# Run with default parameters
+PYTHONPATH=. python scripts/batch_bidir_bfs.py
+
+# Customize sweep parameters
+PYTHONPATH=. python scripts/batch_bidir_bfs.py \
+    --length-min 8.0 --length-max 16.0 --length-step 1.0 \
+    --width-min 2.5 --width-max 6.0 --width-step 0.5 \
+    --fwd-depth 3 --rev-depth 3
+```
+
+Results are saved in timestamped folders with:
+- Individual JSON files for each configuration
+- PNG plots showing trajectories
+- `config.json` with sweep parameters
+- `results_table.md` with summary table
 
 </details>
 

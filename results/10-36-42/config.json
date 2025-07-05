@@ -1,0 +1,30 @@
+{
+  "sweep_params": {
+    "length_min": 7.0,
+    "length_max": 7.0,
+    "length_step": 2.0,
+    "width_min": 2.0,
+    "width_max": 2.0,
+    "width_step": 1.0,
+    "total_configurations": 1
+  },
+  "algorithm_params": {
+    "fwd_depth": 2,
+    "rev_depth": 2,
+    "step_resolution": 2.0,
+    "angle_resolution": 5.0,
+    "max_straight": 10.0,
+    "max_radius": 100.0,
+    "max_radius_count": 30,
+    "max_expansions": 1500,
+    "grid_resolution": 0.05,
+    "progress_interval": 100,
+    "road_width": 5.0
+  },
+  "car_specs": {
+    "length": 5.0,
+    "width": 2.0,
+    "rear_axle": 1.0,
+    "minimum_turning_radius": 7.0
+  }
+}

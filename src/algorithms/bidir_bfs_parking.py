@@ -65,7 +65,7 @@ class BidirBFSParking(BFSParking):
         self.goal_max_straight= config_goal.max_straight
         self.goal_max_turn_sweep = config_goal.max_turn_sweep
 
-        # goal-side radius grid — fallback uses goal’s own step_resolution
+        # goal-side radius grid — fallback uses goal's own step_resolution
         min_r = start_state.specs.minimum_turning_radius
         fallback_step = config_goal.step_resolution or grid_resolution
         max_r = (
@@ -76,6 +76,14 @@ class BidirBFSParking(BFSParking):
         self.goal_radii = self._build_radius_grid(
             min_r, max_r, config_goal.max_radius_count
         )
+
+        # Metadata storage for search results
+        self.visited_states_fwd = 0
+        self.visited_states_rev = 0
+        self.total_visited_states = 0
+        self.pops_fwd = 0
+        self.pops_rev = 0
+        self.total_pops = 0
 
     # ───────────────────────────────────────── helper keys ───────────────────────────────────────── #
     def _make_key_start(self, s: CarState) -> Tuple[float, ...]:
@@ -139,6 +147,13 @@ class BidirBFSParking(BFSParking):
             )
             if not use_fwd and not rev_q:
                 print("No connection found (queues empty).")
+                # Store metadata before returning
+                self.visited_states_fwd = len(visited_fwd)
+                self.visited_states_rev = len(visited_rev)
+                self.total_visited_states = len(visited_fwd) + len(visited_rev)
+                self.pops_fwd = pops_fwd
+                self.pops_rev = pops_rev
+                self.total_pops = pops_fwd + pops_rev
                 return None
 
             # pop node
@@ -168,7 +183,7 @@ class BidirBFSParking(BFSParking):
             # periodic log
             total_pops = pops_fwd + pops_rev
             if progress_interval and total_pops % progress_interval == 0:
-                print(f"[{total_pops}] fwd_q={len(fwd_q)}  rev_q={len(rev_q)}")
+                print(f"[{total_pops}] fwd_visited={len(visited_fwd)}  rev_visited={len(visited_rev)}")
 
             # depth limit
             if node.depth >= max_depth:
@@ -191,6 +206,13 @@ class BidirBFSParking(BFSParking):
                 if h in visited_other:
                     print(h)
                     print(f"✓ meet after pops  FWD={pops_fwd}  REV={pops_rev}")
+                    # Store metadata before returning
+                    self.visited_states_fwd = len(visited_fwd)
+                    self.visited_states_rev = len(visited_rev)
+                    self.total_visited_states = len(visited_fwd) + len(visited_rev)
+                    self.pops_fwd = pops_fwd
+                    self.pops_rev = pops_rev
+                    self.total_pops = pops_fwd + pops_rev
                     return self._stitch(h, parents_fwd, parents_rev)
 
             # budget exhaustion
@@ -198,6 +220,13 @@ class BidirBFSParking(BFSParking):
             done_rev = not rev_q or pops_rev >= self.max_rev_exp
             if done_fwd and done_rev:
                 print("No connection found (budgets exhausted).")
+                # Store metadata before returning
+                self.visited_states_fwd = len(visited_fwd)
+                self.visited_states_rev = len(visited_rev)
+                self.total_visited_states = len(visited_fwd) + len(visited_rev)
+                self.pops_fwd = pops_fwd
+                self.pops_rev = pops_rev
+                self.total_pops = pops_fwd + pops_rev
                 return None
 
     # ───────────────────────────────────────── stitch ───────────────────────────────────────── #

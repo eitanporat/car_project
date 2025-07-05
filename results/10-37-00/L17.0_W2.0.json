@@ -1,0 +1,45 @@
+{
+  "states": [
+    {
+      "x": -11.0,
+      "y": 1.5,
+      "theta": 0.0
+    },
+    {
+      "x": -3.193662477513005,
+      "y": 0.07731867539219905,
+      "theta": 6.021385919380437
+    },
+    {
+      "x": 4.026428527862624,
+      "y": -0.47826684551160525,
+      "theta": 0.0
+    },
+    {
+      "x": 0.02642852786262395,
+      "y": -0.47826684551160525,
+      "theta": 0.0
+    }
+  ],
+  "actions": [
+    {
+      "kind": "rotate",
+      "magnitude": 0.2617993877991494,
+      "direction": "Direction.RIGHT",
+      "radius": 30.358850833179527
+    },
+    {
+      "kind": "rotate",
+      "magnitude": 0.2617993877991494,
+      "direction": "Direction.LEFT",
+      "radius": 27.69881073461781
+    },
+    {
+      "kind": "straight",
+      "magnitude": -4.0,
+      "direction": null,
+      "radius": null
+    }
+  ],
+  "visited_states": 1441
+}
