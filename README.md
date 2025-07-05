@@ -378,17 +378,29 @@ We conducted a comprehensive sweep of parking lot dimensions using bidirectional
 
 **Full Trajectory with Car Outlines**
 ![Sample Full Trajectory 1](docs/images/sample_full_1.png)
-*Parking maneuver in 17.0m × 7.0m space showing complete car trajectory*
+*Failed parking attempt in 7.0m × 2.0m space - too small for successful parking*
 
 ![Sample Full Trajectory 2](docs/images/sample_full_2.png)
-*Parking maneuver in 15.0m × 6.0m space with numbered poses*
+*Successful parking at feasibility threshold in 9.0m × 2.0m space*
+
+![Sample Full Trajectory 3](docs/images/sample_full_3.png)
+*Medium-sized parking space (13.0m × 5.0m) with comfortable maneuver*
+
+![Sample Full Trajectory 4](docs/images/sample_full_4.png)
+*Large, comfortable parking space (17.0m × 7.0m) with ample room*
 
 **Rear Axle Trajectories**
 ![Sample Rear Axle 1](docs/images/sample_rear_1.png)
-*Rear axle path for 17.0m × 7.0m parking space*
+*Rear axle path for failed 7.0m × 2.0m attempt*
 
 ![Sample Rear Axle 2](docs/images/sample_rear_2.png)
-*Rear axle path for 15.0m × 6.0m parking space*
+*Rear axle path for threshold case 9.0m × 2.0m*
+
+![Sample Rear Axle 3](docs/images/sample_rear_3.png)
+*Rear axle path for medium space 13.0m × 5.0m*
+
+![Sample Rear Axle 4](docs/images/sample_rear_4.png)
+*Rear axle path for large space 17.0m × 7.0m*
 
 ### Running Batch Sweeps
 
