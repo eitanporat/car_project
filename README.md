@@ -2,6 +2,11 @@
 
 A Python project for simulating and planning car parking maneuvers using various search algorithms.
 
+**Created by Eitan Porat ([@eitanporat](https://github.com/eitanporat))**
+
+![Sample Parking Maneuver](docs/images/sample_full_3.png)
+*Example parking maneuver in a 13.0m × 5.0m space showing the complete car trajectory with numbered poses and path segments*
+
 ## Table of Contents
 - [Project Structure](#project-structure)
 - [System Design](#system-design)
