@@ -14,6 +14,9 @@ class PathPart:
     def end_point(self) -> Point: ...
     def draw(self, ax: plt.Axes, **kwargs): ...
     def intersects(self, other: "PathPart") -> bool: ...
+    def sample_points(self, spacing: float = 0.1) -> list[Point]:
+        """Return a list of points sampled along the path part at fixed arc-length intervals."""
+        raise NotImplementedError
 
 
 @dataclass
@@ -63,6 +66,19 @@ class StraightPart(PathPart):
         
         # Check if intersection occurs within both line segments
         return 0 <= t <= 1 and 0 <= u <= 1
+
+    def sample_points(self, spacing: float = 0.1) -> list[Point]:
+        points = []
+        dx, dy = self.end.x - self.start.x, self.end.y - self.start.y
+        length = np.hypot(dx, dy)
+        n = max(1, int(np.ceil(length / spacing)))
+        for i in range(n):
+            t = i / n
+            x = self.start.x + t * dx
+            y = self.start.y + t * dy
+            points.append(Point(x, y))
+        points.append(self.end)
+        return points
 
 
 @dataclass
@@ -155,6 +171,16 @@ class ArcPart(PathPart):
                 return end <= angle <= start
             else:
                 return angle <= start or angle >= end
+
+    def sample_points(self, spacing: float = 0.1) -> list[Point]:
+        points = []
+        arc_len = abs(self.radius * self.sweep_angle)
+        n = max(1, int(np.ceil(arc_len / spacing)))
+        for i in range(n):
+            theta = self.start_angle + self.sweep_angle * (i / n)
+            points.append(self._point_at(theta))
+        points.append(self._point_at(self.start_angle + self.sweep_angle))
+        return points
 
 
 @dataclass
