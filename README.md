@@ -10,11 +10,11 @@ A Python project for simulating and planning car parking maneuvers using various
   - [Collision Detection System](#collision-detection-system)
   - [Search Algorithm Framework](#search-algorithm-framework)
   - [Algorithm Implementations](#algorithm-implementations)
-- [Design Choices and Rationale](#design-choices-and-rationale)
 - [Usage](#usage)
 - [Key Components](#key-components)
 - [Dependencies](#dependencies)
 - [Results](#results)
+- [AI-Generated Content](#ai-generated-content)
 
 <details>
 <summary><strong>📁 Project Structure</strong></summary>
@@ -263,9 +263,97 @@ planner = BidirBFSParking(
 </details>
 
 <details>
-<summary><strong>⚠️ AI-Generated Content Disclaimer</strong></summary>
+<summary><strong>🚀 Usage</strong></summary>
 
-⚠️ **DISCLAIMER**: The next two sections are bluntly AI-generated. 
+### Basic Import
+
+```python
+from src import CarSpecs, CarState, ParkingSpace, BFSParking, ExpansionConfig, Point
+import numpy as np
+
+# Create car specifications
+specs = CarSpecs(length=4.5, width=1.8, rear_axle=1.0, minimum_turning_radius=5.0)
+
+# Create car state
+start_state = CarState(specs=specs, orientation=0.0, center=Point(0, 0))
+goal_state = CarState(specs=specs, orientation=0.0, center=Point(10, 0))
+
+# Create parking space
+parking = ParkingSpace(start=Point(10, 5), width=2.5, length=5.0)
+
+# Configure the planner
+expansion_config = ExpansionConfig(
+    step_resolution=2.0,
+    step_angle_resolution=np.deg2rad(10),
+    max_radius=100.0,
+    max_radius_count=5,
+    max_straight=8.0,
+    depth=4,
+)
+
+# Create planner and search
+planner = BFSParking(
+    start_state=start_state,
+    goal_states=[goal_state],
+    parking_space=parking,
+    expansion_config=expansion_config,
+    grid_resolution=2.0,
+    angle_resolution=np.deg2rad(10),
+)
+result = planner.search()
+if result:
+    path, actions = result
+```
+
+### Running Tests
+
+```bash
+# Run a specific test (recommended for this structure):
+python -m src.tests.bfs_test
+```
+
+</details>
+
+<details>
+<summary><strong>🔑 Key Components</strong></summary>
+
+### Core Modules
+- **Car**: Handles car geometry, kinematics, and collision detection
+- **ParkingSpace**: Defines parking space boundaries and constraints
+- **Path**: Represents car trajectories as sequences of straight and arc segments
+- **Action**: Defines motion primitives (straight movement, rotation)
+
+### Algorithms
+- **BFSParking**: Breadth-first search parking planner
+- **BidirBFSParking**: Bidirectional BFS for improved performance
+- **ParallelParking**: Specialized algorithm for parallel parking scenarios
+
+### Heuristics
+- **distance_from_curb**: Distance-based heuristic for parking accuracy
+- **line_distance**: Line-based heuristic for path planning
+- **line_then_curb**: Hybrid heuristic combining multiple approaches
+
+</details>
+
+<details>
+<summary><strong>📦 Dependencies</strong></summary>
+
+- numpy
+- matplotlib
+
+</details>
+
+<details>
+<summary><strong>📊 Results</strong></summary>
+
+*[Results section to be added later]*
+
+</details>
+
+<details>
+<summary><strong>⚠️ AI-Generated Content</strong></summary>
+
+⚠️ **DISCLAIMER**: The following sections are bluntly AI-generated. 
 I think it's still worth a read if you are interested.
 
 ### Performance Optimizations
@@ -373,93 +461,5 @@ I think it's still worth a read if you are interested.
 **Grid Resolution Tuning**:
 - **Choice**: Make grid resolution configurable rather than fixed
 - **Rationale**: Different scenarios require different accuracy levels. Fine grids improve solution quality but increase computation time, while coarse grids are faster but may miss solutions in complex scenarios.
-
-</details>
-
-<details>
-<summary><strong>🚀 Usage</strong></summary>
-
-### Basic Import
-
-```python
-from src import CarSpecs, CarState, ParkingSpace, BFSParking, ExpansionConfig, Point
-import numpy as np
-
-# Create car specifications
-specs = CarSpecs(length=4.5, width=1.8, rear_axle=1.0, minimum_turning_radius=5.0)
-
-# Create car state
-start_state = CarState(specs=specs, orientation=0.0, center=Point(0, 0))
-goal_state = CarState(specs=specs, orientation=0.0, center=Point(10, 0))
-
-# Create parking space
-parking = ParkingSpace(start=Point(10, 5), width=2.5, length=5.0)
-
-# Configure the planner
-expansion_config = ExpansionConfig(
-    step_resolution=2.0,
-    step_angle_resolution=np.deg2rad(10),
-    max_radius=100.0,
-    max_radius_count=5,
-    max_straight=8.0,
-    depth=4,
-)
-
-# Create planner and search
-planner = BFSParking(
-    start_state=start_state,
-    goal_states=[goal_state],
-    parking_space=parking,
-    expansion_config=expansion_config,
-    grid_resolution=2.0,
-    angle_resolution=np.deg2rad(10),
-)
-result = planner.search()
-if result:
-    path, actions = result
-```
-
-### Running Tests
-
-```bash
-# Run a specific test (recommended for this structure):
-python -m src.tests.bfs_test
-```
-
-</details>
-
-<details>
-<summary><strong>🔑 Key Components</strong></summary>
-
-### Core Modules
-- **Car**: Handles car geometry, kinematics, and collision detection
-- **ParkingSpace**: Defines parking space boundaries and constraints
-- **Path**: Represents car trajectories as sequences of straight and arc segments
-- **Action**: Defines motion primitives (straight movement, rotation)
-
-### Algorithms
-- **BFSParking**: Breadth-first search parking planner
-- **BidirBFSParking**: Bidirectional BFS for improved performance
-- **ParallelParking**: Specialized algorithm for parallel parking scenarios
-
-### Heuristics
-- **distance_from_curb**: Distance-based heuristic for parking accuracy
-- **line_distance**: Line-based heuristic for path planning
-- **line_then_curb**: Hybrid heuristic combining multiple approaches
-
-</details>
-
-<details>
-<summary><strong>📦 Dependencies</strong></summary>
-
-- numpy
-- matplotlib
-
-</details>
-
-<details>
-<summary><strong>🏁 Results</strong></summary>
-
-*[Results section to be added later]*
 
 </details>
