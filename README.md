@@ -352,7 +352,7 @@ We conducted a comprehensive sweep of parking lot dimensions using bidirectional
 
 - **Length range**: 7.0m to 20.0m (step: 2.0m)
 - **Width range**: 2.0m to 7.0m (step: 1.0m)
-- **Total configurations**: 48
+- **Total configurations**: 36
 - **Algorithm**: Bidirectional BFS (Forward depth: 2, Reverse depth: 2)
 - **Car specs**: 5.0m × 2.0m, rear axle at 1.0m, minimum turning radius 7.0m
 
@@ -432,10 +432,9 @@ Results are saved in timestamped folders with:
 </details>
 
 <details>
-<summary><strong>⚠️ AI-Generated Content</strong></summary>
+<summary><strong>🔧 Performance Optimizations and Design Choices</strong></summary>
 
-⚠️ **DISCLAIMER**: The following sections are bluntly AI-generated. 
-I think it's still worth a read if you are interested.
+This section details the key design decisions and performance optimizations implemented in the system.
 
 ### Performance Optimizations
 
