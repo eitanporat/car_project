@@ -121,7 +121,8 @@ The parking space consists of multiple curb segments:
 - Top curb (road boundary)
 - Extended baseline segments
 
-*[Image placeholder: Parking space diagram showing curb segments and dimensions]*
+![Parking Space Diagram](docs/images/parking_diagram.png)
+*Parking space diagram showing curb segments, car geometry, and key dimensions*
 
 ### Collision Detection System
 
