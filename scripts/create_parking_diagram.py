@@ -5,42 +5,52 @@ Create a simple parking space diagram for the README.
 
 import matplotlib.pyplot as plt
 import numpy as np
+from math import radians
 from src import CarSpecs, CarState, ParkingSpace, Point
 
 def create_parking_diagram():
     """Create a simple parking space diagram using existing drawing methods"""
-    fig, ax = plt.subplots(1, 1, figsize=(12, 8))
+    fig, ax = plt.subplots(figsize=(12, 8))
     
-    # Create car specs
-    car_specs = CarSpecs(length=5.0, width=2.0, rear_axle=1.0, minimum_turning_radius=7.0)
+    # Use the same setup as the reference test
+    specs = CarSpecs(5, 2, 1, 7)
+    length, width = 10.0, 5.0
     
-    # Create car state (positioned outside parking space)
-    car_state = CarState(specs=car_specs, orientation=0.0, center=Point(-8, 2))
+    # Create start state (positioned outside parking space)
+    start = CarState(
+        specs,
+        0.0,
+        Point(-length / 2 - specs.length / 2, specs.width / 2 + 0.5),
+    )
+    
+    # Create goal state inside parking space
+    goal = CarState(
+        specs,
+        0.0,
+        Point(0.0, specs.width / 2 + 0.5 - width),
+    )
     
     # Create parking space
-    parking = ParkingSpace(start=Point(-5, 0), width=4, length=10)
+    parking = ParkingSpace(Point(-length / 2, 0), width, length, 10, 10)
     
     # Set plot properties
-    ax.set_xlim(-12, 8)
-    ax.set_ylim(-2, 8)
-    ax.set_aspect('equal')
-    ax.grid(True, alpha=0.3)
-    ax.set_xlabel('X (meters)', fontsize=12)
-    ax.set_ylabel('Y (meters)', fontsize=12)
-    ax.set_title('Parking Space and Car Geometry', fontsize=16, fontweight='bold')
+    ax.set_xlim(-20, 20)
+    ax.set_ylim(-20, 20)
+    ax.set_aspect("equal")
+    ax.grid(True)
+    ax.set_title("Parking Space and Car Geometry", fontsize=16, fontweight='bold')
     
     # Draw parking space using existing method
     parking.draw(ax)
     
-    # Draw car using existing method
-    car_state.draw(ax, state="Car", color="blue")
+    # Draw start car using existing method
+    start.draw(ax, state="Start", color="blue")
     
-    # Add a goal state inside the parking space
-    goal_state = CarState(specs=car_specs, orientation=0.0, center=Point(-2, 1))
-    goal_state.draw(ax, state="Goal", color="green")
+    # Draw goal car using existing method (without axle)
+    goal.draw(ax, state="Goal", color="green")
     
     # Add legend
-    ax.legend(loc='upper right', fontsize=10)
+    ax.legend(loc='upper left', fontsize=10)
     
     # Save the plot
     plt.tight_layout()
