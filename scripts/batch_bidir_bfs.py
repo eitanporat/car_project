@@ -32,29 +32,6 @@ COMMON_CFG = dict(
     max_expansions=1500,
 )
 
-# Helper: sample points along a PathPart at fixed arc-length intervals
-def sample_pathpart(part, spacing=0.1):
-    points = []
-    if hasattr(part, 'start') and hasattr(part, 'end'):  # StraightPart
-        start, end = part.start, part.end
-        dx, dy = end.x - start.x, end.y - start.y
-        length = np.hypot(dx, dy)
-        n = max(1, int(np.ceil(length / spacing)))
-        for i in range(n):
-            t = i / n
-            x = start.x + t * dx
-            y = start.y + t * dy
-            points.append(Point(x, y))
-        points.append(end)
-    elif hasattr(part, 'centre') and hasattr(part, 'radius') and hasattr(part, 'start_angle') and hasattr(part, 'sweep_angle'):  # ArcPart
-        arc_len = abs(part.radius * part.sweep_angle)
-        n = max(1, int(np.ceil(arc_len / spacing)))
-        for i in range(n):
-            theta = part.start_angle + part.sweep_angle * (i / n)
-            points.append(part._point_at(theta))
-        points.append(part._point_at(part.start_angle + part.sweep_angle))
-    return points
-
 for length in tqdm(LENGTHS, desc="Length sweep"):
     for width in tqdm(WIDTHS, desc=f"Width sweep (L={length:.1f})", leave=False):
         # Setup scenario
