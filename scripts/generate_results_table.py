@@ -90,7 +90,7 @@ def generate_markdown_table(results):
     
     # Add width headers
     for width in widths:
-        table += f" {width:.1f}m |"
+        table += f" {width:.0f}m |"
     table += "\n"
     
     # Add separator
@@ -98,16 +98,16 @@ def generate_markdown_table(results):
     
     # Add data rows
     for length in lengths:
-        table += f"| **{length:.1f}m** |"
+        table += f"| **{length:.0f}m** |"
         for width in widths:
             if width in results[length]:
                 result = results[length][width]
                 if result['success']:
                     # Success case - green with checkmark
-                    table += f" ✅ {result['visited_states']} |"
+                    table += f" ✅ {result['visited_states']} states |"
                 else:
                     # Failure case - red with X
-                    table += f" ❌ {result['visited_states']} |"
+                    table += f" ❌ {result['visited_states']} states |"
             else:
                 table += " - |"
         table += "\n"
@@ -251,13 +251,13 @@ def generate_html_table(results):
     
     # Add width headers
     for width in widths:
-        html += f'            <th>{width:.1f}m</th>\n'
+        html += f'            <th>{width:.0f}m</th>\n'
     
     html += "        </tr>\n    </thead>\n    <tbody>\n"
     
     # Add data rows
     for length in lengths:
-        html += f"        <tr>\n            <td class='length-header'>{length:.1f}m</td>\n"
+        html += f"        <tr>\n            <td class='length-header'>{length:.0f}m</td>\n"
         for width in widths:
             if width in results[length]:
                 result = results[length][width]
