@@ -19,8 +19,7 @@ A Python project for simulating and planning car parking maneuvers using various
 - [Key Components](#key-components)
 - [Dependencies](#dependencies)
 - [Results](#results)
-- [AI-Generated Content](#ai-generated-content)
-
+- [Performance Optimizations and Design Choices](#performance-optimizations-and-design-choices)
 <details>
 <summary><strong>📁 Project Structure</strong></summary>
 
